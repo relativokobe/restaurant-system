@@ -2,6 +2,7 @@ package com.xyz.reservation_system.reservation.scheduler.impl;
 
 import com.xyz.reservation_system.notification.services.NotificationService;
 import com.xyz.reservation_system.reservation.entities.Reservation;
+import com.xyz.reservation_system.reservation.enums.ReservationStatus;
 import com.xyz.reservation_system.reservation.repositories.ReservationRepository;
 import com.xyz.reservation_system.reservation.scheduler.ReservationReminderScheduler;
 import java.time.ZonedDateTime;
@@ -29,8 +30,9 @@ public class ReservationReminderSchedulerImpl implements ReservationReminderSche
     final ZonedDateTime fourHoursFromNow = now.plusHours(4);
     System.out.println("Scheduler running --");
 
-    List<Reservation> fourHoursAheadReservations =
-        repository.findByReservationDateBetween(now, fourHoursFromNow);
+    final List<Reservation> fourHoursAheadReservations =
+        repository.findByStatusAndReservationDateBetween(
+            ReservationStatus.CONFIRMED, now, fourHoursFromNow);
     if (!CollectionUtils.isEmpty(fourHoursAheadReservations)) {
       fourHoursAheadReservations.forEach(
           reservation -> {

@@ -52,12 +52,12 @@ public class ReservationServiceImpl implements ReservationService {
             .findByCustomerId(currentUserId)
             .orElseThrow(() -> new NoRecordsFoundException(ErrorCode.CURRENT_CUSTOMER_NOT_FOUND));
     reservation.setCustomer(customer);
-
+    repository.save(reservation);
     sendNotification(
         reservation,
         "You have successfully created a reservation with reservation id: "
             + reservation.getReservationId());
-    return CompletableFuture.completedFuture(mapper.convertToDto(repository.save(reservation)));
+    return CompletableFuture.completedFuture(mapper.convertToDto(reservation));
   }
 
   @Transactional

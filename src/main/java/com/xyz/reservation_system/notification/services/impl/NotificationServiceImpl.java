@@ -51,10 +51,17 @@ public class NotificationServiceImpl implements NotificationService {
   @Override
   public CompletableFuture<Void> sendNotification(String message, Reservation reservation) {
     if (reservation.getNotificationChannel() == NotificationChannel.EMAIL) {
-      System.out.println("sending notification to email: " + reservation.getBookerEmail());
+      System.out.println(
+          "sending notification to email: "
+              + reservation.getBookerEmail()
+              + " with message "
+              + message);
     } else {
       System.out.println(
-          "sending notification to phone number: " + reservation.getBookerPhoneNumber());
+          "sending notification to phone number: "
+              + reservation.getBookerPhoneNumber()
+              + " with message "
+              + message);
     }
 
     return CompletableFuture.completedFuture(null);

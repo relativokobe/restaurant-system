@@ -2,6 +2,7 @@ package com.xyz.reservation_system.reservation.repositories;
 
 import com.xyz.reservation_system.common.repositories.SequenceRepository;
 import com.xyz.reservation_system.reservation.entities.Reservation;
+import com.xyz.reservation_system.reservation.enums.ReservationStatus;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -17,5 +18,6 @@ public interface ReservationRepository
 
   List<Reservation> findByReservationDateBefore(ZonedDateTime now);
 
-  List<Reservation> findByReservationDateBetween(ZonedDateTime now, ZonedDateTime future);
+  List<Reservation> findByStatusAndReservationDateBetween(
+      ReservationStatus status, ZonedDateTime now, ZonedDateTime future);
 }
